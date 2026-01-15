@@ -1,0 +1,46 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "spender",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "currentAllowance",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "requestedDecrease",
+          "type": "uint256"
+        }
+      ],
+      "name": "SafeERC20FailedDecreaseAllowance",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "SafeERC20FailedOperation",
+      "type": "error"
+    }
+  ],
+  "evm": {
+    "bytecode": {
+      "functionDebugData": {},
+      "generatedSources": [],
+      "linkReferences": {},
+      "object": "6080806040523460175760399081601c823930815050f35b5f80fdfe5f80fdfea2646970667358221220ac440fddb5c727f41c3f45207a175151229266254c9fe40bf26e03a3fcde426c64736f6c63430008210033",
+      "opcodes": "PUSH1 0x80 DUP1 PUSH1 0x40 MSTORE CALLVALUE PUSH1 0x17 JUMPI PUSH1 0x39 SWAP1 DUP2 PUSH1 0x1C DUP3 CODECOPY ADDRESS DUP2 POP POP RETURN JUMPDEST PUSH0 DUP1 REVERT INVALID PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xAC PREVRANDAO 0xF 0xDD 0xB5 0xC7 0x27 DELEGATECALL SHR EXTCODEHASH GASLIMIT KECCAK256 PUSH27 0x175151229266254C9FE40BF26E03A3FCDE426C64736F6C63430008 0x21 STOP CALLER ",
+      "sourceMap": "698:9376:4:-:0;;;;;;;;;;;;;;;;;;;;;"
+    }
+  }
+}

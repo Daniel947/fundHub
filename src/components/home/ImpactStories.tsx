@@ -1,45 +1,23 @@
-
 import React from 'react';
-import { Heart, Award, HandCoins } from 'lucide-react';
+import { Heart, Award, HandCoins, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-const stories = [
-  {
-    id: 1,
-    title: "Clean Water for Sara's Village",
-    image: "https://images.unsplash.com/photo-1548567117-02328696f450?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1035&q=80",
-    quote: "Before this well, I walked 5 miles daily for water. Now our whole community has access to clean water right here.",
-    person: "Sara M.",
-    location: "Rural Kenya",
-    funds: "12.5 ETH raised",
-    impact: "1,200 lives changed",
-    category: "Healthcare"
-  },
-  {
-    id: 2,
-    title: "Solar Power for Mountain Schools",
-    image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
-    quote: "Our students can now study after sunset. The solar panels have transformed education in our village.",
-    person: "Miguel R.",
-    location: "Peruvian Highlands",
-    funds: "18.3 ETH raised",
-    impact: "350 students benefited",
-    category: "Education"
-  },
-  {
-    id: 3,
-    title: "Emergency Medical Supplies",
-    image: "https://images.unsplash.com/photo-1584515933487-779824d29309?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    quote: "The medical supplies arrived when we needed them most. Lives were saved because of your timely donations.",
-    person: "Dr. Amira H.",
-    location: "Crisis Zone",
-    funds: "32.7 ETH raised",
-    impact: "2,000+ patients treated",
-    category: "Healthcare"
-  },
-];
+import { useCampaigns } from '@/hooks/useCampaigns';
+import { Link } from 'react-router-dom';
+import { usePriceFeed } from '@/hooks/usePriceFeed';
 
 const ImpactStories = () => {
+  const { campaigns } = useCampaigns();
+  const { convertToUSD } = usePriceFeed();
+
+  // Get top 3 funded campaigns to feature as impact stories
+  const featuredStories = campaigns
+    ?.filter(c => c.percentComplete > 0)
+    .sort((a, b) => b.percentComplete - a.percentComplete)
+    .slice(0, 3) || [];
+
+  // Fallback if no campaigns are loaded yet
+  if (featuredStories.length === 0) return null;
+
   return (
     <section className="py-20 bg-fundhub-light">
       <div className="container mx-auto px-4">
@@ -51,14 +29,14 @@ const ImpactStories = () => {
             bringing hope and transformation to communities in need.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {stories.map((story) => (
-            <div key={story.id} className="bg-white rounded-xl overflow-hidden shadow-md impact-pulse">
-              <div className="relative h-48">
-                <img 
-                  src={story.image} 
-                  alt={story.title} 
+          {featuredStories.map((story) => (
+            <div key={story.id} className="bg-white rounded-xl overflow-hidden shadow-md impact-pulse flex flex-col h-full">
+              <div className="relative h-48 shrink-0">
+                <img
+                  src={story.image}
+                  alt={story.title}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black/60"></div>
@@ -68,47 +46,53 @@ const ImpactStories = () => {
                   </span>
                 </div>
               </div>
-              
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3">{story.title}</h3>
-                
-                <div className="bg-fundhub-light p-4 rounded-lg mb-5">
-                  <p className="italic text-gray-700 relative">
+
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-xl font-bold mb-3 line-clamp-1">{story.title}</h3>
+
+                <div className="bg-fundhub-light p-4 rounded-lg mb-5 flex-grow">
+                  <p className="italic text-gray-700 relative text-sm line-clamp-3">
                     <span className="absolute -top-2 -left-2 text-fundhub-primary text-4xl opacity-30">"</span>
-                    {story.quote}
+                    {story.description || "Every donation brings us closer to our goal. Your support is changing lives and building a better future."}
                   </p>
-                  <div className="flex items-center mt-3">
-                    <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                  <div className="flex items-center mt-4 pt-4 border-t border-gray-200/50">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-xs font-bold text-gray-600">
+                      {story.creator.substring(0, 2)}
+                    </div>
                     <div className="ml-2">
-                      <p className="font-medium text-sm">{story.person}</p>
-                      <p className="text-xs text-gray-500">{story.location}</p>
+                      <p className="font-medium text-sm truncate max-w-[150px]">{story.creator}</p>
+                      <p className="text-xs text-gray-500 line-clamp-1">{story.network === 'sonic' ? 'Sonic Network' : story.network === 'btc' ? 'Bitcoin Network' : 'Ethereum Network'}</p>
                     </div>
                   </div>
                 </div>
-                
-                <div className="flex justify-between mb-4">
+
+                <div className="flex justify-between mb-4 mt-auto">
                   <div className="flex items-center">
                     <HandCoins className="h-4 w-4 text-fundhub-primary mr-1" />
-                    <span className="text-sm font-medium">{story.funds}</span>
+                    <span className="text-sm font-medium">{story.raised} {story.currency}</span>
                   </div>
                   <div className="flex items-center">
                     <Heart className="h-4 w-4 text-fundhub-primary mr-1" />
-                    <span className="text-sm font-medium">{story.impact}</span>
+                    <span className="text-sm font-medium">Approx. ${convertToUSD(story.raised, story.currency)}</span>
                   </div>
                 </div>
-                
-                <Button variant="outline" className="w-full border-fundhub-primary text-fundhub-primary hover:bg-fundhub-primary hover:text-white">
-                  <Award className="mr-2 h-4 w-4" /> View Full Story
-                </Button>
+
+                <Link to={`/campaigns/${story.slug}`}>
+                  <Button variant="outline" className="w-full border-fundhub-primary text-fundhub-primary hover:bg-fundhub-primary hover:text-white transition-colors">
+                    <Award className="mr-2 h-4 w-4" /> View Campaign
+                  </Button>
+                </Link>
               </div>
             </div>
           ))}
         </div>
-        
+
         <div className="mt-12 text-center">
-          <Button className="btn-gradient">
-            Browse All Impact Stories
-          </Button>
+          <Link to="/campaigns">
+            <Button className="btn-gradient">
+              Browse All Impact Stories <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -74,28 +73,49 @@
   * {
     @apply border-border;
   }
-  
+
   body {
     @apply bg-background text-foreground font-inter;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-poppins font-bold;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-white bg-opacity-80 backdrop-blur-lg border border-white border-opacity-30 shadow-lg;
+    @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-sm;
   }
-  
+
+  .premium-glass {
+    @apply bg-white/40 backdrop-blur-2xl border border-white/50 shadow-md;
+  }
+
+  .glass-sidebar {
+    @apply bg-white/20 backdrop-blur-3xl border-r border-white/20 shadow-xl;
+  }
+
+  .glass-border {
+    @apply border border-white/40;
+  }
+
   .btn-gradient {
-    @apply bg-gradient-fundhub text-white font-medium py-2 px-6 rounded-lg transition-all hover:shadow-lg;
+    @apply bg-gradient-to-r from-fundhub-primary to-fundhub-secondary text-white font-semibold py-2.5 px-6 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98];
   }
-  
+
+  .btn-glass {
+    @apply bg-white/30 backdrop-blur-md border border-white/40 text-fundhub-dark font-semibold py-2.5 px-6 rounded-xl transition-all duration-300 hover:bg-white/50 hover:shadow-md;
+  }
+
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+    @apply transition-all duration-500 hover:shadow-2xl hover:-translate-y-2;
   }
 }
 
@@ -131,9 +151,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -166,18 +188,23 @@
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0) translateX(0);
     opacity: 0.7;
   }
+
   25% {
     transform: translateY(-20px) translateX(10px);
     opacity: 0.5;
   }
+
   50% {
     transform: translateY(0) translateX(20px);
     opacity: 0.7;
   }
+
   75% {
     transform: translateY(20px) translateX(10px);
     opacity: 0.5;
@@ -190,9 +217,12 @@
 }
 
 @keyframes token-float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -204,10 +234,13 @@
 }
 
 @keyframes impact-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.05);
     opacity: 0.9;
@@ -224,9 +257,11 @@
     transform: scale(0.5);
     opacity: 0;
   }
+
   70% {
     transform: scale(1.1);
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -250,4 +285,38 @@
 .connection-indicator::before {
   content: "";
   @apply w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse;
+}
+
+/* Shimmer loading animation for avatars */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+
+/* Infinite marquee for partners */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 15s linear infinite;
+}
+
+.pause-on-hover:hover {
+  animation-play-state: paused;
 }

@@ -12,6 +12,23 @@ dist
 dist-ssr
 *.local
 
+# Environment variables (CRITICAL SECURITY)
+.env
+.env.local
+.env.*.local
+*.env
+.env.example
+.env.krnl.example
+.env.production
+.env.development
+
+# Security and sensitive files
+SECURITY_AUDIT_REPORT.md
+security_audit.json
+*.pem
+*.key
+*.cert
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -22,3 +39,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Hardhat
+cache/
+artifacts/

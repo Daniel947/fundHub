@@ -1,0 +1,29 @@
+[
+  {
+    "id": "5ccy5afqh",
+    "campaignId": "0x9e75dd78d34f80c444272ff590851b4f34dae0d30e7cae2d93b182813a9e9c01",
+    "user": "0x136F...",
+    "authorAddress": "0x136Fa7a9F36186d3b94f726028390d17B1774cc8",
+    "content": "Hello Akwatia people, we are bring you good news",
+    "time": "2026-01-01T23:18:58.719Z",
+    "isCreator": true
+  },
+  {
+    "id": "sojbyc1rg",
+    "campaignId": "0x9e75dd78d34f80c444272ff590851b4f34dae0d30e7cae2d93b182813a9e9c01",
+    "user": "0x136F...",
+    "authorAddress": "0x136Fa7a9F36186d3b94f726028390d17B1774cc8",
+    "content": "Hello Akwatia this project was created by DannyCEO",
+    "time": "2026-01-01T23:12:44.096Z",
+    "isCreator": true
+  },
+  {
+    "id": "1",
+    "campaignId": "0x...",
+    "user": "Alice Sonic",
+    "authorAddress": "0x123...",
+    "content": "So excited to see this project on Sonic! The transparency with the milestones is exactly what we need.",
+    "time": "2026-01-01T13:57:38.704Z",
+    "isCreator": false
+  }
+]
